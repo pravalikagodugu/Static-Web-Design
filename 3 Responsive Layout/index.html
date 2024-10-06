@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Search Clone</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/d/d0/Googleplex_Welcome_Sign.jpg"); /* Wikimedia image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            position: relative; /* Make sure relative positioning works */
+            padding: 20px; /* Padding for body */
+        }
+
+        /* Navbar styling for Gmail and Login buttons */
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            color: #5f6368;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Centering search container */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: calc(100vh - 100px); /* Leaves space for the top bar and ads */
+        }
+
+        .search-container img {
+            width: 250px;
+            height: auto;
+        }
+
+        /* Search bar styling */
+        .search-bar {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-bar button {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Advertisement styling */
+        .ad-container {
+            position: absolute; /* Position it absolutely within the body */
+            top: 20px; /* Position from the top */
+            left: 0;
+            right: 0; /* Center the ads horizontally */
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space ads to the sides */
+            padding: 0 20px; /* Padding for ads */
+        }
+
+        .ad {
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+            color: brown; /* Default text color for Chrome ad */
+        }
+
+        .ad.scholar {
+            width: 35%; /* Wider and shorter ad for Scholar */
+            background-color: #f0f8ff; /* Light background for Scholar */
+            margin-top: 0; /* Align to the top */
+            padding: 10px;
+        }
+
+        .ad.chrome {
+            width: 30%; /* Smaller and taller ad for Chrome */
+            background-color: lightyellow; /* Light yellow background for Chrome */
+            margin-top: 30px; /* Lower position for Chrome ad */
+            padding: 10px;
+        }
+
+        /* Follow link styles */
+        .follow-link {
+            display: block; /* Make follow link block for spacing */
+            margin-top: 10px; /* Space above the link */
+        }
+
+        .follow-link.scholar {
+            color: blue; /* Blue for Scholar link */
+        }
+
+        .follow-link.chrome {
+            color: darkorange; /* Dark orange for Chrome link */
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            .search-bar {
+                max-width: 100%;
+            }
+
+            .search-bar input[type="text"] {
+                font-size: 14px;
+            }
+
+            .search-bar button {
+                padding: 8px 16px;
+            }
+
+            .search-container img {
+                width: 200px; /* Smaller logo for smaller screens */
+            }
+
+            .ad-container {
+                flex-direction: column; /* Stack ads vertically */
+                align-items: center; /* Center ads */
+            }
+
+            .ad {
+                width: 90%; /* Full width for smaller screens */
+                margin: 10px 0; /* Space between ads */
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .search-container img {
+                width: 150px; /* Smaller logo for phone screens */
+            }
+
+            .search-bar input[type="text"] {
+                font-size: 12px;
+            }
+
+            .search-bar button {
+                padding: 6px 12px;
+            }
+
+            .ad-container {
+                top: 10px; /* Adjust position for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar with links for Gmail and Login buttons -->
+    <div class="navbar">
+        <a href="https://accounts.google.com/v3/signin/identifier?ifkv=ARpgrqfOjqe_JINQ-DnIYDIxu7dSZBDMV4_IrfibjmDTxCcJrxg4kFxMBpcbjpmQAvIZPBETLa5Vhg&service=mail&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S1797799226%3A1727556718670297&ddm=0">Gmail</a>
+        <a href="#">Login</a> <!-- Placeholder for the login button -->
+    </div>
+
+    <!-- Search container with Google logo and search bar -->
+    <div class="search-container">
+        <!-- Google logo image -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo">
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search Google or type a URL">
+            <button type="submit">Search</button>
+        </div>
+    </div>
+
+    <!-- Advertisement Container -->
+    <div class="ad-container">
+        <!-- First Advertisement for Google Scholar -->
+        <div class="ad scholar">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Google_Scholar_logo.svg" alt="Google Scholar Logo" style="width: 100%; height: auto; border-radius: 5px;">
+            <p style="font-size: 14px;">Unlock a world of knowledge with Google Scholar! Access millions of academic papers, theses, and scholarly articles in seconds.</p>
+            <a class="follow-link scholar" href="https://scholar.google.com/">Follow link</a>
+        </div>
+
+        <!-- Second Advertisement for Chrome -->
+        <div class="ad chrome">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Google_Chrome_icon.svg" alt="Chrome Logo" style="width: 100%; height: auto; border-radius: 5px;">
+            <p style="font-size: 16px;">Use Chrome for the best exploration!</p>
+            <a class="follow-link chrome" href="https://www.google.com/chrome/">Follow link</a>
+        </div>
+    </div>
+
+</body>
+</html>
